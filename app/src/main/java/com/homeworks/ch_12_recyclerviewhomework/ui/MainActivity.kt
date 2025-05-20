@@ -2,7 +2,10 @@ package com.homeworks.ch_12_recyclerviewhomework.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.homeworks.ch_12_recyclerviewhomework.R
 import com.homeworks.ch_12_recyclerviewhomework.adapter.SongAdapter
 import com.homeworks.ch_12_recyclerviewhomework.databinding.ActivityMainBinding
 
@@ -23,7 +26,13 @@ class MainActivity : AppCompatActivity() {
             "Blank Space",
             "Stay",
             "Apache",
-            "Closer"
+            "Closer",
+            "Perfect",
+            "Alone",
+            "Happier",
+            "Bad Liar",
+            "Lose You To Love Me",
+            "Believer",
         )
 
         val singerList = arrayListOf(
@@ -35,11 +44,21 @@ class MainActivity : AppCompatActivity() {
             "Taylor Swift",
             "Kid Laroi",
             "Rose",
-            "Chainsmokers"
+            "Chainsmokers",
+            "Ed Sheeran",
+            "Marshmello",
+            "Marshmello",
+            "Imagine Dragons",
+            "Selena Gomez",
+            "Imagine Dragons",
         )
 
         val adapter = SongAdapter(songList, singerList)
         binding.rvSong.layoutManager = LinearLayoutManager(this)
         binding.rvSong.adapter = adapter
+
+        val dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)
+        dividerItemDecoration.setDrawable(resources.getDrawable(R.drawable.custom_divider));
+        binding.rvSong.addItemDecoration(dividerItemDecoration)
     }
 }
