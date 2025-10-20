@@ -1,18 +1,11 @@
 package com.homeworks.ch_17_sqlitedb_homework
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import kotlin.collections.get
-import kotlin.toString
+import com.homeworks.ch_17_sqlitedb_homework.databinding.ListItemStudentBinding
 
 class StudentAdapter(
     private val students: List<Student>,
@@ -20,37 +13,47 @@ class StudentAdapter(
     private val onDelete: (Student) -> Unit
 ) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
-    class StudentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.findViewById<TextView>(R.id.tvName)
-        val grade = view.findViewById<TextView>(R.id.tvGrade)
-        val edit = view.findViewById<ImageView>(R.id.ivEdit)
-        val delete = view.findViewById<ImageView>(R.id.ivDelete)
-    }
+    inner class StudentViewHolder(val binding: ListItemStudentBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_student, parent, false)
-        return StudentViewHolder(view)
+        val binding = ListItemStudentBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return StudentViewHolder(binding)
     }
 
     override fun getItemCount() = students.size
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         val student = students[position]
-        holder.name.text = "${student.name} ${if (student.gender == "Male") "♂" else "♀"}"
-        holder.grade.text = student.grade.toString()
+        val context = holder.itemView.context
+        val binding = holder.binding
 
-        holder.edit.setOnClickListener { onEdit(student) }
-        holder.delete.setOnClickListener {
-            AlertDialog.Builder(holder.itemView.context)
+        binding.tvName.text = "${student.name}"
+        binding.tvGrade.text = student.grade.toString()
+
+        binding.ivGender.setImageResource(if (student.gender == "Male") R.drawable.outline_male_24 else R.drawable.outline_female_24)
+
+        binding.ivEdit.setOnClickListener { onEdit(student) }
+
+        binding.ivDelete.setOnClickListener {
+            AlertDialog.Builder(context)
                 .setTitle("Delete Confirmation")
                 .setMessage("Are you sure you want to delete ${student.name}?")
                 .setPositiveButton("OK") { _, _ ->
                     onDelete(student)
-                    Snackbar.make(holder.itemView, "${student.name} deleted successfully", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        holder.itemView,
+                        "${student.name} deleted successfully",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
                 .setNegativeButton("Cancel", null)
                 .show()
         }
     }
 }
+

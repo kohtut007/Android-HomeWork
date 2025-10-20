@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvStudents.adapter = adapter
 
-        binding.btnAdd.setOnClickListener {
+        binding.fbAdd.setOnClickListener {
             startActivity(Intent(this@MainActivity, AddStudentActivity::class.java))
         }
     }

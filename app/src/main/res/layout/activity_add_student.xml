@@ -71,7 +71,7 @@
         android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/btnAddStudent"
+        android:id="@+id/btAddStudent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Add Student"

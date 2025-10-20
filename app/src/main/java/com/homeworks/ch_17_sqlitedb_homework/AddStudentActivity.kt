@@ -31,10 +31,10 @@ class AddStudentActivity : AppCompatActivity() {
             } else {
                 binding.rbFemale.isChecked = true
             }
-            binding.btnAddStudent.text = "Update Student"
+            binding.btAddStudent.text = "Update Student"
         }
 
-        binding.btnAddStudent.setOnClickListener {
+        binding.btAddStudent.setOnClickListener {
             val name = binding.etName.text.toString()
             val gradeText = binding.etGrade.text.toString()
             val roomNoText = binding.etRoomNo.text.toString()
@@ -42,13 +42,11 @@ class AddStudentActivity : AppCompatActivity() {
             val fatherName = binding.etFatherName.text.toString()
 
             if (name.isNotEmpty() && gradeText.isNotEmpty() && roomNoText.isNotEmpty()) {
-                val grade = gradeText.toInt()
-                val roomNo = roomNoText
                 val updatedStudent = Student(
                     id = studentId ?: 0,
                     name = name,
-                    grade = grade,
-                    roomNo = roomNo,
+                    grade = gradeText.toInt(),
+                    roomNo = roomNoText,
                     gender = gender,
                     fatherName = fatherName
                 )
