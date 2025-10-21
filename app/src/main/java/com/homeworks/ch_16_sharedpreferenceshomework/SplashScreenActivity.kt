@@ -18,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("LOGIN_PREF", MODE_PRIVATE)
 
         lifecycleScope.launch {
             delay(3000)
@@ -28,9 +28,9 @@ class SplashScreenActivity : AppCompatActivity() {
                 } else {
                     Intent(this@SplashScreenActivity, LoginActivity::class.java)
                 }
-            ).apply {
-                finish()
-            }
+            )
+            finish()
+
         }
     }
 }
